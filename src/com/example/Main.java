@@ -7,39 +7,66 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String inputString = "amen Icy CINEMA";
-        if (isPalindrome(inputString)) {
+        String input = "pale";
+        String output = "bake";
+        if (isOneAway(input, output)) {
             System.out.println("True");
         } else {
             System.out.println("False");
         }
     }
 
-    public static boolean isPalindrome(String s) {
-        StringBuilder reversed = new StringBuilder();
-        StringBuilder noSpace = new StringBuilder();
-        for (int i = 0; i < s.length(); ++i) {
-            if (s.charAt(i) != ' ') {
-                noSpace.append(s.charAt(i));
-            }
-        }
-        String input = noSpace.toString();
-        input = input.toLowerCase();
-        System.out.println(input);
-        for (int i = s.length()-1; i >= 0; --i) {
-            if (s.charAt(i) != ' ') {
-                reversed.append(s.charAt(i));
-            }
-        }
-        String output = reversed.toString();
-        output = output.toLowerCase();
-        System.out.println(output);
-        if (input.equals(output)) {
+    public static boolean isOneAway(String input, String output) {
+        if (input.compareTo(output) == 0) {
             return true;
-        } else {
+        }
+        if((Math.abs(input.length()-output.length()))>=2){
             return false;
         }
+        if (input.length() == output.length()) {
+            return checkReplace(input, output);
+        }
+        if (input.length() > output.length()) {
+            return checkInsert(input, output);
+        }
+        if (output.length() > input.length()) {
+            return checkInsert(output, input);
+        }
+        return false;
     }
+
+    public static boolean checkReplace(String input, String output) {
+        int replaceCount = 0;
+        for(int i = 0; i < input.length(); ++i){
+            if(input.charAt(i)!=output.charAt(i)){
+                replaceCount++;
+                if(replaceCount > 1){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean checkInsert(String longer, String shorter){
+        int insertCount = 0;
+        int shorterIndex = 0;
+        for(int i = 0; i < longer.length(); ++i){
+            if(longer.length()-shorterIndex==1){
+                return true;
+            }
+            if(longer.charAt(i)!=shorter.charAt(shorterIndex)){
+                insertCount++;
+                i++;
+                if(insertCount > 1){
+                    return false;
+                }
+            }
+            shorterIndex++;
+        }
+        return true;
+    }
+
 }
 
 
