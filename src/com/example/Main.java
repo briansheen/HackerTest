@@ -7,41 +7,28 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String s1 = "waterbottle";
-        String s2 = "erbottlewat";
-        System.out.println(isSubstring(s1, s2));
-        s2 = "bottlewater";
-        System.out.println(isSubstring(s1, s2));
-        s2 = "terbtotlewa";
-        System.out.println(isSubstring(s1, s2));
+        Node a = new Node('a');
+        Node b = new Node('b');
+        Node c = new Node('c');
+        Node d = new Node('d');
+        Node e = new Node('e');
+        Node f = new Node('f');
+        a.next = b;
+        b.next = c;
+        c.next = d;
+        d.next = e;
+        e.next = f;
+        System.out.println(a);
+        deleteNode(c);
+        System.out.println(a);
     }
 
-    public static boolean isSubstring(String s1, String s2){
-        if(s1.equals(s2)){
-            return true;
+    public static void deleteNode(Node n){
+        if(n != null && n.next != null){
+            Node next = n.next;
+            n.next = next.next;
+            n.data = next.data;
         }
-        if(s1.length()!=s2.length()){
-            return false;
-        }
-        String testString = s1;
-        for(int i = 0; i < s1.length(); ++i){
-            testString = rotateOne(testString);
-            System.out.println(testString);
-            if(testString.equals(s2)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static String rotateOne(String s1){
-        char lastChar = s1.charAt(s1.length()-1);
-        StringBuilder rotatedString = new StringBuilder();
-        rotatedString.append(lastChar);
-        for(int i = 0; i < s1.length()-1; ++i){
-            rotatedString.append(s1.charAt(i));
-        }
-        return rotatedString.toString();
     }
 
 }
