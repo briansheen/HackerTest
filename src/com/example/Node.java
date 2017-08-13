@@ -5,9 +5,9 @@ package com.example;
  */
 public class Node {
     Node next = null;
-    char data;
+    Integer data;
 
-    public Node(char d){
+    public Node(int d){
         this.data = d;
     }
 
